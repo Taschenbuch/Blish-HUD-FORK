@@ -241,7 +241,7 @@ namespace Blish_HUD.Overlay.UI.Views {
             var version = new Label() {
                 AutoSizeHeight      = true,
                 Width               = infoPanel.Width,
-                Text                = $"{Strings.Common.BlishHUD} v{Program.OverlayVersion.BaseAndPrerelease()}",
+                Text                = $"{Strings.Common.BlishHUD} v{Program.OverlayVersion.BaseAndPrerelease()}-with-hide-CornerIcon-Setting",
                 BasicTooltipText    = $"v{Program.OverlayVersion}",
                 Font                = GameService.Content.DefaultFont14,
                 HorizontalAlignment = HorizontalAlignment.Right,

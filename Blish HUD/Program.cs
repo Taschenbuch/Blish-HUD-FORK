@@ -17,7 +17,7 @@ namespace Blish_HUD {
 
         private const string APP_GUID = "{5802208e-71ca-4745-ab1b-d851bc17a460}";
 
-        public static SemVer.Version OverlayVersion { get; } = new SemVer.Version(typeof(BlishHud).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion, true);
+        public static SemVer.Version OverlayVersion { get; } = new SemVer.Version("1.2.0", true);
 
         internal static bool RestartOnExit { get; set; } = false;
 
