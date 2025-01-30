@@ -53,6 +53,7 @@ namespace Blish_HUD {
         public SettingEntry<KeyBinding> ToggleBlishWindow { get; private set; }
         public SettingEntry<bool>   CloseWindowOnEscape { get; private set; }
         public SettingEntry<KeyBinding> HideAllInterface { get; private set; }
+        public SettingEntry<KeyBinding> HideCornerIconsSetting { get; private set; }
         internal SettingEntry<bool> ShowPreviews { get; private set; }
 
         public bool InterfaceHidden = false;
@@ -159,6 +160,8 @@ namespace Blish_HUD {
                                                               new KeyBinding(ModifierKeys.Shift | ModifierKeys.Ctrl, Keys.H),
                                                               () => Strings.GameServices.OverlayService.Setting_HideInterfaceKeybind_DisplayName,
                                                               () => Strings.GameServices.OverlayService.Setting_HideInterfaceKeybind_Description);
+
+            HideCornerIconsSetting = settings.DefineSetting("hideCornerIcons", new KeyBinding(ModifierKeys.Shift | ModifierKeys.Ctrl, Keys.A), () => "Hide corner icons");
 
             this.ToggleBlishWindow =   settings.DefineSetting(nameof(this.ToggleBlishWindow),
                                                               new KeyBinding(ModifierKeys.Shift | ModifierKeys.Ctrl, Keys.B),

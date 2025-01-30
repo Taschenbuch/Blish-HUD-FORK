@@ -143,6 +143,18 @@ namespace Blish_HUD.Controls {
 
             GameService.Gw2Mumble.PlayerCharacter.IsInCombatChanged += delegate { UpdateCornerIconDynamicHUDCombatState(); };
             GameService.GameIntegration.Gw2Instance.IsInGameChanged += delegate { UpdateCornerIconDynamicHUDLoadingState(); };
+
+            GameService.Overlay.HideCornerIconsSetting.Value.Enabled = true;
+            GameService.Overlay.HideCornerIconsSetting.Value.Activated += HideCornerIconKeybindingActivated;
+        }
+
+        private static bool _cornerIconsHidden = false;
+
+        private static void HideCornerIconKeybindingActivated(object sender, System.EventArgs e) {
+            _cornerIconsHidden = !_cornerIconsHidden;
+
+            foreach (var cornerIcon in CornerIcons)
+                cornerIcon.DynamicHide = !_cornerIconsHidden;
         }
 
         private static void UpdateCornerIconPositions() {
@@ -156,6 +168,9 @@ namespace Blish_HUD.Controls {
         }
 
         public static void UpdateCornerIconDynamicHUDCombatState() {
+            if (_cornerIconsHidden)
+                return;
+
             if (GameService.Overlay.DynamicHUDMenuBar == DynamicHUDMethod.ShowPeaceful && GameService.Gw2Mumble.PlayerCharacter.IsInCombat) {
                 foreach (var cornerIcon in CornerIcons) {
                     cornerIcon.DynamicHide = false;
@@ -168,6 +183,9 @@ namespace Blish_HUD.Controls {
         }
 
         public static void UpdateCornerIconDynamicHUDLoadingState() {
+            if (_cornerIconsHidden)
+                return;
+
             if (GameService.Overlay.DynamicHUDLoading == DynamicHUDMethod.NeverShow && !GameService.GameIntegration.Gw2Instance.IsInGame) {
                 foreach (var cornerIcon in CornerIcons) {
                     cornerIcon.DynamicHide = false;
@@ -182,7 +200,9 @@ namespace Blish_HUD.Controls {
         public CornerIcon() {
             this.Parent = Graphics.SpriteScreen;
             this.Size   = new Point(ICON_SIZE, ICON_SIZE);
-            this.DynamicHide = true;
+
+            if (_cornerIconsHidden)
+                this.DynamicHide = true;
 
             lock (CornerIcons) {
                 CornerIcons.Add(this);
